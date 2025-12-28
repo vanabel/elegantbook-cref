@@ -163,6 +163,32 @@
 正如 \cref{conj:goldbach,claim:key} 所示。
 ```
 
+### 附录引用配置
+
+对于需要区分正文章节和附录引用的情况，参见 [`test_appendix.tex`](test_appendix.tex)：
+
+```latex
+\usepackage{etoolbox}
+
+% 配置图表的 cref 名称
+\crefname{figure}{图}{图}
+
+% 在 \appendix 命令前重新配置 chapter 引用
+\pretocmd{\appendix}{%
+  \crefalias{chapter}{appchapter}%
+}{}{}
+
+% 配置引用格式
+\crefformat{chapter}{#2第\zhnumber{#1}章#3}
+\crefformat{appchapter}{#2附录~#1#3}
+\crefformat{section}{#2第#1节#3}
+```
+
+**效果**：
+- 正文：`\cref{chap:intro}` → "第一章"
+- 附录：`\cref{appx:A}` → "附录 A"
+- 混合引用：`\cref{chap:intro,appx:A}` → "第一章以及附录 A"
+
 ## 与原版的差异
 
 ### 兼容性
@@ -182,14 +208,20 @@
 
 ### 查看示例 PDF
 
-仓库中包含预编译的示例文档：[test_elegantbook.pdf](test_elegantbook.pdf)
+仓库中包含预编译的示例文档：
 
-该文档完整展示了所有功能，包括：
-- 定理环境的连续编号
-- Cleveref 的各种引用格式
-- 多种参数语法的支持
-- 中文连接词和括号
-- 自定义定理环境
+1. **[test_elegantbook.pdf](test_elegantbook.pdf)** - 基本功能演示
+   - 定理环境的连续编号
+   - Cleveref 的各种引用格式
+   - 多种参数语法的支持
+   - 中文连接词和括号
+   - 自定义定理环境
+
+2. **[test_appendix.pdf](test_appendix.pdf)** - 附录引用配置示例
+   - 正文章节与附录的引用格式区分
+   - 混合引用正文和附录
+   - 附录中的定理环境
+   - 完整的配置代码示例
 
 ### 自行编译
 

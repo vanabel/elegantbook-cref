@@ -14,8 +14,9 @@
 
 # Output files
 *.pdf
-# But keep example PDF for demonstration
+# But keep example PDFs for demonstration
 !test_elegantbook.pdf
+!test_appendix.pdf
 
 # OS files
 .DS_Store
