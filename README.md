@@ -171,18 +171,10 @@
 ✅ **语法兼容**：现有文档无需修改即可使用  
 ⚠️ **编号变化**：默认情况下定理环境将连续编号（原版是独立编号）
 
-### 如需独立编号
-
-如果需要恢复原版的独立编号行为，使用 `usesamecnt` 选项：
-
-```latex
-\documentclass[cn,usesamecnt]{elegantbook}
-```
-
 ## 文件说明
 
 - **`elegantbook.cls`**：增强版文档类（本项目）
-- **`elegantbook.cls.bak.cls`**：原版文档类备份
+- **`elegantbook.cls.original`**：原版文档类备份
 - **`test_elegantbook.tex`**：完整的测试文档，演示所有功能
 - **`changes.diff`**：详细的差异对比文件
 
