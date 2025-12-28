@@ -946,7 +946,8 @@
         colframe=white,
         arc=0pt,
         outer arc=0pt},
-      separator sign={.},},
+      separator sign none,
+      description delimiters parenthesis,},
     defstyle/.style={
       common,
       colframe=main,  
@@ -1018,7 +1019,9 @@
               {%
                 \csname #1name\endcsname~%
                 \ifdef{\thetcbcounter}{\thetcbcounter}{}%
-                \ifblank{#2}{}{\ (#2)}%
+                \ifdefstring{\ELEGANT@lang}{cn}
+                  {\ifblank{#2}{}{~（#2）}}
+                  {\ifblank{#2}{}{~(#2)}}%
               }
           }
       },
