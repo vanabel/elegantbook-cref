@@ -1,0 +1,129 @@
+% !Mode:: "TeX:UTF-8"
+% !Mode:: "TeX:UTF-8"
+\documentclass[cn,scheme=chinese, mode=fancy]{elegantbook} 
+
+\usepackage[nameinlink,capitalize]{cleveref}
+\elegantnewtheorem{thm}{定理}{thmstyle}{thm}[theorem]
+\elegantnewtheorem{lem}{引理}{thmstyle}{lem}[theorem]
+\elegantnewtheorem{defn}{定义}{defstyle}{defn}[theorem]
+\elegantnewtheorem{cor}{推论}{thmstyle}{cor}[theorem]
+\elegantnewtheorem{prop}{命题}{prostyle}{prop}[theorem]
+\elegantnewtheorem{rmk}{注意}{attstyle}{rmk}[theorem]
+
+\title{测试定理环境统一编号}
+\subtitle{Test Continuous Numbering}
+\author{测试作者}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\chapter{测试章节}
+
+\section{测试节}
+
+\begin{thm}{}{thm1}
+这是一个定理，应该编号为 1.1。
+\end{thm}
+
+\begin{definition}{}{def1}
+这是一个定义，应该编号为 1.2（与定理连续编号）。
+\end{definition}
+
+\begin{lemma}{}{lem1}
+这是一个引理，应该编号为 1.3。
+\end{lemma}
+
+\begin{proposition}{}{prop1}
+这是一个命题，应该编号为 1.4。
+\end{proposition}
+
+\begin{corollary}{}{cor1}
+这是一个推论，应该编号为 1.5。
+\end{corollary}
+
+\begin{axiom}{}{axi1}
+这是一个公理，应该编号为 1.6。
+\end{axiom}
+
+\begin{postulate}{}{pos1}
+这是一个公设，应该编号为 1.7。
+\end{postulate}
+
+\section{引用测试}
+
+引用定理：\cref{thm:thm1}
+
+引用定义：\cref{def:def1}
+
+引用引理：\cref{lem:lem1}
+
+引用命题：\cref{pro:prop1}
+
+引用推论：\cref{cor:cor1}
+
+引用公理：\cref{axi:axi1}
+
+引用公设：\cref{pos:pos1}
+
+多个引用：\cref{thm:thm1,def:def1,lem:lem1}
+
+\chapter{第二个章节}
+
+\section{测试可选参数语法}
+
+下面展示通过 \verb|\elegantnewtheorem| 创建的环境支持的各种语法：
+
+\subsection{无参数的定理}
+
+\begin{thm}
+这是一个完全没有参数的定理，内容会正确显示在这里，不会被误认为是标题参数。
+编号应该是 2.1。
+\end{thm}
+
+\subsection{只有标题的定理}
+
+\begin{thm}{重要定理}
+这是一个只有标题的定理，没有标签，因此不能被引用。
+编号应该是 2.2。
+\end{thm}
+
+\subsection{有标题和标签的定理}
+
+\begin{thm}{Cauchy-Schwarz 不等式}{cs}
+这是一个既有标题又有标签的定理，可以被引用。
+编号应该是 2.3。
+\end{thm}
+
+现在引用这个定理：\cref{thm:cs}
+
+\subsection{其他环境的测试}
+
+\begin{lem}
+没有参数的引理，编号应该是 2.4。
+\end{lem}
+
+\begin{defn}{拓扑空间}
+只有标题的定义，编号应该是 2.5。
+\end{defn}
+
+\begin{prop}{}{basic}
+没有标题但有标签的命题，编号应该是 2.6。
+\end{prop}
+
+\begin{cor}{}{important}
+没有标题但有标签的推论，编号应该是 2.7。
+\end{cor}
+
+\section{综合引用测试}
+
+引用各种环境：
+\begin{itemize}
+\item Cauchy-Schwarz 不等式：\cref{thm:cs}
+\item 基本命题：\cref{prop:basic}
+\item 重要推论：\cref{cor:important}
+\item 多个引用：\cref{thm:cs,prop:basic,cor:important}
+\end{itemize}
+
+\end{document}
