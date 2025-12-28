@@ -180,6 +180,19 @@
 
 ## 测试
 
+### 查看示例 PDF
+
+仓库中包含预编译的示例文档：[test_elegantbook.pdf](test_elegantbook.pdf)
+
+该文档完整展示了所有功能，包括：
+- 定理环境的连续编号
+- Cleveref 的各种引用格式
+- 多种参数语法的支持
+- 中文连接词和括号
+- 自定义定理环境
+
+### 自行编译
+
 运行测试文档：
 
 ```bash
@@ -187,7 +200,7 @@ xelatex test_elegantbook.tex
 xelatex test_elegantbook.tex  # 第二次编译以生成正确的交叉引用
 ```
 
-测试文档验证了：
+### 测试验证
 - ✅ 定理环境的连续编号
 - ✅ Cleveref 的所有引用格式
 - ✅ 多种参数语法的支持
