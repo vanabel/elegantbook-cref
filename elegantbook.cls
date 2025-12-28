@@ -1271,14 +1271,26 @@
     \@ifpackageloaded{cleveref}{%
       % Configure cref names for each environment type (from label type)
       % This maps the label type (e.g., "theorem") to the display name
-      \crefname{theorem}{\theoremname}{\theoremname s}%
-      \crefname{definition}{\definitionname}{\definitionname s}%
-      \crefname{postulate}{\postulatename}{\postulatename s}%
-      \crefname{axiom}{\axiomname}{\axiomname s}%
-      \crefname{corollary}{\corollaryname}{\corollaryname s}%
-      \crefname{lemma}{\lemmaname}{\lemmaname s}%
-      \crefname{proposition}{\propositionname}{\propositionname s}%
-      \crefname{attention}{\attentionname}{\attentionname s}%
+      % In Chinese, singular and plural forms are the same
+      \ifdefstring{\ELEGANT@lang}{cn}{%
+        \crefname{theorem}{\theoremname}{\theoremname}%
+        \crefname{definition}{\definitionname}{\definitionname}%
+        \crefname{postulate}{\postulatename}{\postulatename}%
+        \crefname{axiom}{\axiomname}{\axiomname}%
+        \crefname{corollary}{\corollaryname}{\corollaryname}%
+        \crefname{lemma}{\lemmaname}{\lemmaname}%
+        \crefname{proposition}{\propositionname}{\propositionname}%
+        \crefname{attention}{\attentionname}{\attentionname}%
+      }{%
+        \crefname{theorem}{\theoremname}{\theoremname s}%
+        \crefname{definition}{\definitionname}{\definitionname s}%
+        \crefname{postulate}{\postulatename}{\postulatename s}%
+        \crefname{axiom}{\axiomname}{\axiomname s}%
+        \crefname{corollary}{\corollaryname}{\corollaryname s}%
+        \crefname{lemma}{\lemmaname}{\lemmaname s}%
+        \crefname{proposition}{\propositionname}{\propositionname s}%
+        \crefname{attention}{\attentionname}{\attentionname s}%
+      }
       % Map label prefixes to types for cleveref (important for \cref{thm:xxx})
       % This tells cleveref how to interpret labels like thm:xxx, def:xxx, etc.
       % First use \crefalias to map prefixes to types
@@ -1291,14 +1303,25 @@
       \crefalias{pro}{proposition}%
       \crefalias{att}{attention}%
       % Also configure display names for prefixes (as backup)
-      \crefname{thm}{\theoremname}{\theoremname s}%
-      \crefname{def}{\definitionname}{\definitionname s}%
-      \crefname{pos}{\postulatename}{\postulatename s}%
-      \crefname{axi}{\axiomname}{\axiomname s}%
-      \crefname{cor}{\corollaryname}{\corollaryname s}%
-      \crefname{lem}{\lemmaname}{\lemmaname s}%
-      \crefname{pro}{\propositionname}{\propositionname s}%
-      \crefname{att}{\attentionname}{\attentionname s}%
+      \ifdefstring{\ELEGANT@lang}{cn}{%
+        \crefname{thm}{\theoremname}{\theoremname}%
+        \crefname{def}{\definitionname}{\definitionname}%
+        \crefname{pos}{\postulatename}{\postulatename}%
+        \crefname{axi}{\axiomname}{\axiomname}%
+        \crefname{cor}{\corollaryname}{\corollaryname}%
+        \crefname{lem}{\lemmaname}{\lemmaname}%
+        \crefname{pro}{\propositionname}{\propositionname}%
+        \crefname{att}{\attentionname}{\attentionname}%
+      }{%
+        \crefname{thm}{\theoremname}{\theoremname s}%
+        \crefname{def}{\definitionname}{\definitionname s}%
+        \crefname{pos}{\postulatename}{\postulatename s}%
+        \crefname{axi}{\axiomname}{\axiomname s}%
+        \crefname{cor}{\corollaryname}{\corollaryname s}%
+        \crefname{lem}{\lemmaname}{\lemmaname s}%
+        \crefname{pro}{\propositionname}{\propositionname s}%
+        \crefname{att}{\attentionname}{\attentionname s}%
+      }
       % Initialize conjunction commands if not already defined
       % This ensures compatibility even if user doesn't specify a language option for cleveref
       \providecommand{\crefpairconjunction}{ and~}%

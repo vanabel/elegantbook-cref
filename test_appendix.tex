@@ -14,12 +14,17 @@
   \crefalias{chapter}{appchapter}%
 }{}{}
 
-% 配置正文章节的引用格式
+% 配置正文章节的引用格式和名称
+\crefname{chapter}{章}{章}
 \crefformat{chapter}{#2第\zhnumber{#1}章#3}
+\crefmultiformat{chapter}{#2第\zhnumber{#1}章#3}{以及#2第\zhnumber{#1}章#3}{、#2第\zhnumber{#1}章#3}{以及#2第\zhnumber{#1}章#3}
+
 \crefformat{section}{#2第#1节#3}
 
-% 配置附录的引用格式
+% 配置附录的引用格式和名称
+\crefname{appchapter}{附录}{附录}
 \crefformat{appchapter}{#2附录~#1#3}
+\crefmultiformat{appchapter}{#2附录~#1#3}{以及#2附录~#1#3}{、#2附录~#1#3}{以及#2附录~#1#3}
 
 \title{附录引用示例}
 \subtitle{使用 Cleveref 正确引用附录}
