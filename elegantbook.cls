@@ -121,7 +121,8 @@
   plainpages=false,
   pdfstartview=FitH,
   pdfborder={0 0 0},
-  linktocpage
+  linktocpage,
+  hyperindex=true
 }
 \newif\ifELEGANT@Hy@later
   \@ifpackagelater{hyperref}{2022/05/16}
@@ -1676,7 +1677,8 @@
   \vfill
 \end{titlepage}
 \restoregeometry
-\thispagestyle{empty}}
+\thispagestyle{empty}
+\hypersetup{pageanchor=true}}
 
 
 \newcommand{\dollar}{\mbox{\textdollar}}
