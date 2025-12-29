@@ -129,6 +129,10 @@
     {\ELEGANT@Hy@latertrue}
     {\ELEGANT@Hy@laterfalse}
 
+%% Load imakeidx for index support with hyperlinks
+\RequirePackage{imakeidx}
+\makeindex
+
 %% device settings
 \RequirePackage{geometry}
 \ifdefstring{\ELEGANT@device}{normal}{
