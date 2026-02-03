@@ -1115,19 +1115,37 @@
     % Configure immediately if cleveref is already loaded, otherwise defer to \AtBeginDocument
     \@ifpackageloaded{cleveref}{%
       % Cleveref is already loaded, configure now
-      \@ifundefined{#1name}{}{%
-        \crefname{#1}{\csname #1name\endcsname}{\csname #1name\endcsname s}%
+      \ifdefstring{\ELEGANT@lang}{cn}{%
+        % Chinese mode: no plural form
+        \@ifundefined{#1name}{}{%
+          \crefname{#1}{\csname #1name\endcsname}{\csname #1name\endcsname}%
+        }%
+        \crefname{#2}{\csname #1name\endcsname}{\csname #1name\endcsname}%
+      }{%
+        % English mode: add 's' for plural
+        \@ifundefined{#1name}{}{%
+          \crefname{#1}{\csname #1name\endcsname}{\csname #1name\endcsname s}%
+        }%
+        \crefname{#2}{\csname #1name\endcsname}{\csname #1name\endcsname s}%
       }%
-      \crefname{#2}{\csname #1name\endcsname}{\csname #1name\endcsname s}%
       \crefalias{#2}{#1}%
     }{%
       % Cleveref not loaded yet, defer to \AtBeginDocument
       \AtBeginDocument{%
         \@ifpackageloaded{cleveref}{%
-          \@ifundefined{#1name}{}{%
-            \crefname{#1}{\csname #1name\endcsname}{\csname #1name\endcsname s}%
+          \ifdefstring{\ELEGANT@lang}{cn}{%
+            % Chinese mode: no plural form
+            \@ifundefined{#1name}{}{%
+              \crefname{#1}{\csname #1name\endcsname}{\csname #1name\endcsname}%
+            }%
+            \crefname{#2}{\csname #1name\endcsname}{\csname #1name\endcsname}%
+          }{%
+            % English mode: add 's' for plural
+            \@ifundefined{#1name}{}{%
+              \crefname{#1}{\csname #1name\endcsname}{\csname #1name\endcsname s}%
+            }%
+            \crefname{#2}{\csname #1name\endcsname}{\csname #1name\endcsname s}%
           }%
-          \crefname{#2}{\csname #1name\endcsname}{\csname #1name\endcsname s}%
           \crefalias{#2}{#1}%
         }{}
       }%
@@ -1286,6 +1304,27 @@
         \crefname{lemma}{\lemmaname}{\lemmaname}%
         \crefname{proposition}{\propositionname}{\propositionname}%
         \crefname{attention}{\attentionname}{\attentionname}%
+        % Configure chapter and section names
+        \crefname{chapter}{章}{章}%
+        \crefname{section}{节}{节}%
+        \crefname{subsection}{小节}{小节}%
+        \crefname{figure}{图}{图}%
+        \crefname{table}{表}{表}%
+        \crefname{equation}{式}{式}%
+        \crefname{page}{页}{页}%
+        % Configure chapter reference formats (for Chinese numbers)
+        \crefformat{chapter}{#2第\zhnumber{#1}章#3}%
+        \crefrangeformat{chapter}{#3第\zhnumber{#1}到\zhnumber{#2}章#4}%
+        \crefmultiformat{chapter}{#2第\zhnumber{#1}章#3}{ 以及#2第\zhnumber{#1}章#3}{、#2第\zhnumber{#1}章#3}{ 以及#2第\zhnumber{#1}章#3}%
+        % Configure section reference formats
+        \crefformat{section}{#2第#1节#3}%
+        \crefrangeformat{section}{#3第#1到#2节#4}%
+        \crefmultiformat{section}{#2第#1节#3}{ 以及#2第#1节#3}{、#2第#1节#3}{ 以及#2第#1节#3}%
+        % Configure other reference formats
+        \crefformat{figure}{#2图~#1#3}%
+        \crefformat{table}{#2表~#1#3}%
+        \crefformat{equation}{#2式~(#1)#3}%
+        \crefformat{page}{#2第#1页#3}%
       }{%
         \crefname{theorem}{\theoremname}{\theoremname s}%
         \crefname{definition}{\definitionname}{\definitionname s}%
@@ -1569,6 +1608,16 @@
 \RequirePackage{adforn}
 
 \newenvironment{problemset}[1][\xchaptertitle~\exercisename]{
+  % Save current equation counter and format
+  \edef\ELEGANT@saved@theequation{\theequation}%
+  \edef\ELEGANT@saved@eqvalue{\the\value{equation}}%
+  % Reset equation counter and use simple numbering in problemset
+  \setcounter{equation}{0}%
+  \renewcommand{\theequation}{\arabic{equation}}%
+  % If noanswer mode, hide solution environment in problemset
+  \ifdefstring{\ELEGANT@result}{noanswer}{%
+    \renewenvironment{solution}{\comment}{\endcomment}%
+  }{}%
   \vspace*{10pt}
   \begin{center}
     \phantomsection\addcontentsline{toc}{section}{\texorpdfstring{\xchaptertitle~\exercisename}{\exercisename}}
@@ -1577,18 +1626,17 @@
     \textcolor{structurecolor}{\Large\bfseries\adftripleflourishleft~#1~\adftripleflourishright}
   \end{center}
   \begin{enumerate}}{
-  \end{enumerate}}
+  \end{enumerate}
+  % Restore equation counter and format after problemset
+  \setcounter{equation}{\ELEGANT@saved@eqvalue}%
+  \renewcommand{\theequation}{\ELEGANT@saved@theequation}%
+}
 
 \def\relsec{\endgroup start}
 \def\endrelsec{end\begingroup\def \@currenvir {relsec}}
 
-\ifdefstring{\ELEGANT@result}{noanswer}{
-  \AtBeginDocument{
-  \excludecomment{solution}
-  \excludecomment{proof}
-  \excludecomment{inline}
-  }
-}{\relax}
+% Note: result=noanswer option only hides solution environment in problemset
+% The solution environment redefinition is handled inside problemset environment
 
 
 %页眉页脚

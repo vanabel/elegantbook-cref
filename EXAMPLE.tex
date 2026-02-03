@@ -1,0 +1,176 @@
+% !TeX program = xelatex
+% ElegantBook with Cleveref - 快速入门示例
+
+\documentclass[cn,scheme=chinese,mode=fancy]{elegantbook}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+\title{ElegantBook 与 Cleveref}
+\subtitle{快速入门示例}
+\author{作者}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{基本用法}\label{chap:basic}
+
+\section{定理环境}\label{sec:theorem}
+
+\begin{theorem}{勾股定理}{pythagoras}
+在直角三角形中，直角边的平方和等于斜边的平方：
+\[ a^2 + b^2 = c^2 \]
+\end{theorem}
+
+\begin{definition}{素数}{prime}
+大于 1 的自然数，除了 1 和它本身外，不能被其他自然数整除。
+\end{definition}
+
+\begin{lemma}{辅助引理}{helper}
+这是一个辅助引理的内容。
+\end{lemma}
+
+\begin{proposition}{基本命题}{basic}
+这是一个基本命题的内容。
+\end{proposition}
+
+\begin{corollary}{推论}{corollary}
+从上述定理可以得出这个推论。
+\end{corollary}
+
+注意：上述环境自动连续编号（1.1, 1.2, 1.3, 1.4, 1.5）
+
+\section{引用示例}\label{sec:ref}
+
+\subsection{单个引用}
+
+\begin{itemize}
+\item 章引用：参见\cref{chap:basic}
+\item 节引用：详见\cref{sec:theorem}
+\item 定理引用：根据\cref{thm:pythagoras}
+\item 定义引用：由\cref{def:prime}可知
+\end{itemize}
+
+\subsection{多重引用}
+
+\begin{itemize}
+\item 多个定理：\cref{thm:pythagoras,lem:helper,prop:basic}
+\item 章节混合：\cref{chap:basic,sec:theorem,sec:ref}
+\end{itemize}
+
+\section{图表和公式}
+
+\begin{figure}[htbp]
+\centering
+\rule{5cm}{3cm}  % 黑色方块代替实际图片
+\caption{示例图片}\label{fig:example}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{示例表格}\label{tab:example}
+\begin{tabular}{ccc}
+\hline
+列1 & 列2 & 列3 \\
+\hline
+数据1 & 数据2 & 数据3 \\
+\hline
+\end{tabular}
+\end{table}
+
+Einstein 质能方程：
+\begin{equation}\label{eq:einstein}
+E = mc^2
+\end{equation}
+
+引用示例：
+\begin{itemize}
+\item 图引用：如\cref{fig:example}所示
+\item 表引用：见\cref{tab:example}
+\item 公式引用：由\cref{eq:einstein}可知
+\end{itemize}
+
+\chapter{高级用法}\label{chap:advanced}
+
+\section{习题环境}
+
+\begin{problemset}
+
+\item 求解方程 $x^2 - 3x + 2 = 0$
+
+\begin{solution}
+因式分解：$(x-1)(x-2) = 0$，所以 $x = 1$ 或 $x = 2$。
+\end{solution}
+
+\item 证明 $\sqrt{2}$ 是无理数
+
+\begin{solution}
+使用反证法。假设 $\sqrt{2}$ 是有理数...
+\end{solution}
+
+\item 计算积分
+\begin{equation}
+\int_0^1 x^2 dx
+\end{equation}
+
+\begin{solution}
+$$\int_0^1 x^2 dx = \left[\frac{x^3}{3}\right]_0^1 = \frac{1}{3}$$
+\end{solution}
+
+\end{problemset}
+
+\textbf{提示}：使用 \texttt{noanswer} 选项可以隐藏答案：
+\begin{verbatim}
+\documentclass[cn,mode=fancy,noanswer]{elegantbook}
+\end{verbatim}
+
+\section{自定义定理环境}
+
+可以使用 \verb|\elegantnewtheorem| 创建自定义环境：
+
+\begin{verbatim}
+\elegantnewtheorem{conjecture}{猜想}{prostyle}{conj}[theorem]
+\end{verbatim}
+
+\section{章节引用测试}
+
+跨章节引用：\cref{chap:basic,chap:advanced}
+
+连续章节范围：当引用多个连续章节时，会自动合并为范围格式。
+
+\appendix
+
+\chapter{附录 A}\label{appx:A}
+
+这是附录内容。
+
+要实现附录引用格式，需要在导言区添加：
+\begin{verbatim}
+\usepackage{etoolbox}
+\crefname{appchapter}{附录}{附录}
+\crefformat{appchapter}{#2附录~#1#3}
+\pretocmd{\appendix}{\crefalias{chapter}{appchapter}}{}{}
+\end{verbatim}
+
+\chapter{总结}
+
+\section{主要特性}
+
+\begin{enumerate}
+\item 定理环境自动连续编号
+\item Cleveref 引用格式自动配置
+\item 中文连接词和数字格式
+\item Problemset 环境增强
+\item 极简的导言区配置
+\end{enumerate}
+
+\section{文档类选项}
+
+\begin{itemize}
+\item \texttt{chapter}（默认）：定理按章编号
+\item \texttt{section}：定理按节编号
+\item \texttt{noanswer}：隐藏 problemset 中的答案
+\end{itemize}
+
+\end{document}
